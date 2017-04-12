@@ -4,19 +4,20 @@ import tweepy
 from time import  sleep
 
 
-consumer_key="HkAvgwmkC20Osnck42vq7Hp3G"
-consumer_secret="nlVF8LsZgmzINpgZNpglYa8jp4thqvKLfL7dBKx6aN1DKdikqP"
+consumer_key="your consumer key"
+consumer_secret="your consumer secret"
 
-access_token="841609620699414529-8ALYrTo3Ji3ZMmAVFCALA2PhO03rxqI"
+access_token="your access token"
 
-access_token_secret="JK6nqzhHQ93d7bDMgDghk6ToIaDncStpr6YF651gVMDfU"
-kull_login=tweepy.OAuthHandler("HkAvgwmkC20Osnck42vq7Hp3G","nlVF8LsZgmzINpgZNpglYa8jp4thqvKLfL7dBKx6aN1DKdikqP")
-kull_login.set_access_token("841609620699414529-8ALYrTo3Ji3ZMmAVFCALA2PhO03rxqI","JK6nqzhHQ93d7bDMgDghk6ToIaDncStpr6YF651gVMDfU")
+access_token_secret="your a.t. secret "
+kull_login=tweepy.OAuthHandler(consumer_key,consumer_secret)
+kull_login.set_access_token(access_token,access_token_secret)
 api=tweepy.API(kull_login)
 
 
 
 try :
+  #pardus etiketi altındaki tweetleri tw yapar
   for status in tweepy.Cursor(api.search,q="#Pardus").items(1000):
     api.retweet(status.id)
 
@@ -26,4 +27,15 @@ try :
 
 except tweepy.TweepError as e :
         print(e)
+    #bir hesabın tweetlerini tr yapmak için 
+    try :
+ user_timeline=api.user_timeline(screen_name="takipedilecekhesabınismi",count=1000)
+
+ for tivit in user_timeline:
+    api.retweet(tivit.id)
+    sleep(5)
+
+except tweepy.TweepError as e :
+        print(e)
+
 
